@@ -94,7 +94,7 @@ module.exports = {
     }
     之后我们需要去配置一下我们的脚本 因为我们每次启动本地服务的时候需要 npx webpack-dev-server 有点太繁琐了，所以我们就在package.json中的scripts中去配置 dev-server: 'npx webpack-dev-server'这样我们就可以直接使用npm run dev-server 来启动本地的服务
 
-#### 1.3.2使用插件自动创建脚本
+#### 1.3.2使用插件自动创建HTML文件
     let HtmlWebpackPlugin = require('html-webpack-plugin');//引入自动创建生成html模板的插件
     这里我们需要装一下这个插件 yarn add html-webpack-plugin -D
      plugins: [// 放着所有的webpack插件
