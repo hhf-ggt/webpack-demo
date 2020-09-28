@@ -1,6 +1,3 @@
-/**
-*date:2020-09-28
-*/
 
 ## [webpack官网](https://www.webpackjs.com/concepts/)
 ## webpack学习记录
