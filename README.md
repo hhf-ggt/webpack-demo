@@ -104,3 +104,88 @@ module.exports = {
         })
     ]
 
+#### 1.3.3样式处理
+    需要配置打包我们css或者less或者sass的loader
+    安装loader
+    npm install style-loader css-loader -D
+    module:{ // 模块
+        rules: [
+            // 规则 css-loader 接受@import 这种语法的
+            // style-loader 是将css插入到head标签中的
+            // loader的特点就是希望单一
+            // 多个loader 需要使用数组 一个loader使用字符串loader
+            // loader是有顺序的 从右到左 从下到上
+            // loader还可以写为一个对象 这样方便传递参数
+            { 
+                test: /\.css$/, 
+                use: [{
+                  loader: 'style-loader',
+                  options: {
+                      insertAt: 'top' // 我们将我们打包出来的style标签插入到我们在页面自己手写的上方这样就不会有覆盖问题了
+                  }
+                }, 'css-loader']
+            }
+        ]
+    }
+    报错了 ' options has an unknown property 'insertAt'' 我们去看源码 node_modules/style-loader/dist/index.js
+    const insert = typeof options.insert === 'undefined' ? '"head"' : typeof options.insert === 'string' ? JSON.stringify(options.insert) : options.insert.toString();
+    const injectType = options.injectType || 'styleTag';
+    从源码中我们可以看到没有insertAt和 singleton 只有 insert 和 injectType
+    
+    所以我们修改配置
+
+     module:{ // 模块
+        rules: [
+            // 规则 css-loader 接受@import 这种语法的
+            // style-loader 是将css插入到head标签中的
+            // loader的特点就是希望单一
+            // 多个loader 需要使用数组 一个loader使用字符串loader
+            // loader是有顺序的 从右到左 从下到上
+            // loader还可以写为一个对象 这样方便传递参数
+            { 
+                test: /\.css$/, 
+                use: [{
+                  loader: 'style-loader',// head标签
+                  options: {
+                    insert: 'top',
+                    injectType: 'singletonStyleTag'
+                  }
+                }, 'css-loader']
+            }
+        ]
+    }
+
+    增加less-loader yarn less less-loader -D
+    增加配置
+    
+    module:{ // 模块
+        rules: [
+            // 规则 css-loader 接受@import 这种语法的
+            // style-loader 是将css插入到head标签中的
+            // loader的特点就是希望单一
+            // 多个loader 需要使用数组 一个loader使用字符串loader
+            // loader是有顺序的 从右到左 从下到上
+            // loader还可以写为一个对象 这样方便传递参数
+            { 
+                test: /\.css$/, 
+                use: [{
+                  loader: 'style-loader',// head标签
+                  options: {
+                    insert: 'top',
+                    injectType: 'singletonStyleTag'
+                  }
+                }, 'css-loader']
+            },
+            {
+                test: /\.less$/,
+                 use: [{
+                  loader: 'style-loader',// head标签
+                  options: {
+                    insert: 'top',
+                    <!-- injectType: 'singletonStyleTag' -->
+                  }
+                }, 'css-loader', 'less-loader']
+            }
+        ]
+    }
+

@@ -18,5 +18,36 @@ module.exports = {
             template: './src/index.html',
             filename: 'index.html'
         })
-    ]
+    ],
+    module:{ // 模块
+        rules: [
+            // 规则 css-loader 接受@import 这种语法的
+            // style-loader 是将css插入到head标签中的
+            // loader的特点就是希望单一
+            // 多个loader 需要使用数组 一个loader使用字符串loader
+            // loader是有顺序的 从右到左 从下到上
+            // loader还可以写为一个对象 这样方便传递参数
+            { 
+                test: /\.css$/, 
+                use: [{
+                  loader: 'style-loader',// head标签
+                  options: {
+                    insert: 'top',
+                    // insertAt: 'top', // 我们将我们打包出来的style标签插入到我们在页面自己手写的上方这样就不会有覆盖问题了
+                    // singleton: true, // 将所有style合并为一个
+                    injectType: 'singletonStyleTag'
+                  }
+                }, 'css-loader']
+            },
+            {
+                test: /\.less$/,
+                 use: [{
+                  loader: 'style-loader',// head标签
+                  options: {
+                    insert: 'top'
+                  }
+                }, 'css-loader', 'less-loader']
+            }
+        ]
+    }
 }
