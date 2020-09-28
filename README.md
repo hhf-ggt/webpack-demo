@@ -60,7 +60,7 @@ $ npx webpack
 
 ```bash
 //  webpack是node写出来的 所以我们也要采用node的写法
-let path = require('pathl'); // 引入路径模块
+let path = require('path'); // 引入路径模块
 module.exports = {
     mode: 'production',
     entry: './src/index.js', // 入口文件 webpack是通过这个入口去逐步将所有js文件以及其他文件打包起来 的. 这里使用的是相对路劲
