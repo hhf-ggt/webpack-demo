@@ -4,7 +4,7 @@
 
 ## [webpack官网](https://www.webpackjs.com/concepts/)
 ## webpack学习记录
-    使用webpack时间也不短了，但是从来都是写业务之类的，项目框架什么的都是老大在搞，所以想抽出来点时间自己学习下.webpack现在是前端工程化中重要的一个技术，如果不用或者不学习就有点跟不上节奏了，希望自己不要掉队，不要‘一🐏迁徙’。
+    使用webpack时间也不短了，但是从来都是写业务之类的，项目框架什么的都是老大在搞，所以想抽出来点时间自己学习下.webpack现在是前端工程化中重要的一个技术，如果不用或者不学习就有点跟不上节奏了，希望自己不要‘一🐏迁徙’。
 
 #### webpack可以做哪些事情
     代码转换：将我们的es6代码转换为es5
@@ -60,7 +60,7 @@ $ npx webpack
 
 ```bash
 //  webpack是node写出来的 所以我们也要采用node的写法
-let path = require('pathl'); // 引入路径模块
+let path = require('path'); // 引入路径模块
 module.exports = {
     mode: 'production',
     entry: './src/index.js', // 入口文件 webpack是通过这个入口去逐步将所有js文件以及其他文件打包起来 的. 这里使用的是相对路劲
@@ -94,7 +94,7 @@ module.exports = {
     }
     之后我们需要去配置一下我们的脚本 因为我们每次启动本地服务的时候需要 npx webpack-dev-server 有点太繁琐了，所以我们就在package.json中的scripts中去配置 dev-server: 'npx webpack-dev-server'这样我们就可以直接使用npm run dev-server 来启动本地的服务
 
-#### 1.3.2使用插件自动创建脚本
+#### 1.3.2使用插件自动创建HTML文件
     let HtmlWebpackPlugin = require('html-webpack-plugin');//引入自动创建生成html模板的插件
     这里我们需要装一下这个插件 yarn add html-webpack-plugin -D
      plugins: [// 放着所有的webpack插件
