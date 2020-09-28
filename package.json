@@ -1,0 +1,19 @@
+{
+  "name": "webpack",
+  "version": "1.0.0",
+  "description": "使用webpack时间也不短了，但是从来都是写业务之类的，项目框架什么的都是老大在搞，所以想抽出来点时间自己学习下.webpack现在是前端工程化中重要的一个技术，如果不用或者不学习就有点跟不上节奏了，希望自己不要掉队，不要‘一🐏迁徙’。",
+  "main": "index.js",
+  "scripts": {
+    "dev-server": "webpack-dev-server",
+    "dev-client": "webpack --config webpack.config.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "html-webpack-plugin": "^4.5.0",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
