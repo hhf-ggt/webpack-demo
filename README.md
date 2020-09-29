@@ -165,4 +165,37 @@ module.exports = {
             }
         ]
     }
+    
+    我们继续来搞我们的样式
+    抽离css插件  yarn add mini-css-extract-plugin -D  webpacj 4.x
+    我们在使用的时侯首先将我们的插件进行new 一下 里面传参的话是打包出来的文件的名称 之后我们需要将我们的 MiniCssExtractPlugin.loader添加在我们的css规则中 如下
+    { 
+        test: /\.css$/, 
+        use: [{
+            loader: 'style-loader',// head标签
+            options: {
+            insert: 'top',
+            //insertAt: 'top', // 我们将我们打包出来的style标签插入到我们在页面自己手写的上方这样就不会有覆盖问题了
+            // singleton: true, // 将所有style合并为一个
+            injectType: 'singletonStyleTag'
+            }
+        }, MiniCssExtractPlugin.loader, 'css-loader']
+    },
 
+    现在我们需要将我们的css样式添加一个浏览器兼容性的前缀用来兼容不同浏览器的差别
+    首先我们来安装插件 yarn add postcss-loader autoprefixer -D
+    使用方法和其他loader一样 在解析css-2loader之前进行添加 
+    
+    此外我们还需要在项目的根目录下新建一个postcss.config.js
+    module.exports = {
+        plugins: [require('autoprefixer')]
+    }
+    这里build会报一个错误我们需要进行安装postcss
+
+    接下来我们发现我们的css并没有被压缩还是之前的样子所以我们需要对我们的css进行压缩
+    yarn add optimize-css-assets-webpack-plugin -D
+    之后需要在文件中像其他插件一样的引用
+
+    将es6转换为es5
+    首先需要安装babel-loader  @label/core @babel/preset-env -D
+    之后在webpack中配置 rule规则
