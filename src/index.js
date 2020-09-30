@@ -4,3 +4,5 @@ require('./index.css');
 () => {
     console.log('我是箭头函数')
 }
+
+[1, 2].includes(1);

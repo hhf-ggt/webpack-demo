@@ -199,3 +199,16 @@ module.exports = {
     将es6转换为es5
     首先需要安装babel-loader  @label/core @babel/preset-env -D
     之后在webpack中配置 rule规则
+
+    并且我们需要安装一下es6的运行环境 transform-runtime
+    我们来安装这个插件 npm install --save @babel/runtime
+
+    npm install --save-dev @babel/plugin-transform-runtime
+
+    配置完 include 和exclude后会报 resolve是not defined 所以我们需要搞一个辅助函数
+    function resolve(dir) {
+        return path.join(__dirname, dir);
+    }
+
+    安装填充模块
+    npm install @babel-polifill -D

@@ -3,6 +3,10 @@ let HtmlWebpackPlugin = require('html-webpack-plugin');//引入自动创建生�
 let MiniCssExtractPlugin = require('mini-css-extract-plugin'); //抽离css的插件
 let OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin'); //压缩css的插件
 let UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+// 辅助函数 解决报错resolve is not defined
+function resolve(dir) {
+    return path.join(__dirname, dir);
+}
 module.exports = {
     mode: 'development', // 默认的模式有两种一种是 development还有一种是production两种
     devServer:{ // 开发服务器的配置
@@ -17,7 +21,10 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'), // 打包后的路径就是文件放在哪里 必须是一个绝对路径
     },
     resolve:{
-        extensions:['.js','.css','.json']  //用于配置程序可以自行补全哪些文件后缀
+        extensions:['.js','.css','.json'],  //用于配置程序可以自行补全哪些文件后缀
+        alias: {// 配置别名
+            '@': resolve('src')// 用@来代替src目录
+        }
     },
     plugins: [// 放着所有的webpack插件
         new HtmlWebpackPlugin({
@@ -53,9 +60,14 @@ module.exports = {
                     options: {
                         presets: [
                             '@babel/preset-env'
+                        ],
+                        plugins: [
+                            "@babel/plugin-transform-runtime"
                         ]
                     }
-                }
+                },
+                // include: path.resolve(__dirname, 'src'),// 指定在哪个目录下面找
+                // exclude: /node_modules/
             },
             // 规则 css-loader 接受@import 这种语法的
             // style-loader 是将css插入到head标签中的
