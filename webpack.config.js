@@ -77,7 +77,7 @@ module.exports = {
                     }
                 },
                 // include: path.resolve(__dirname, 'src'),// 指定在哪个目录下面找
-                // exclude: /node_modules/
+                exclude: /node_modules/
             },
             // 规则 css-loader 接受@import 这种语法的
             // style-loader 是将css插入到head标签中的

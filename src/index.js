@@ -1,3 +1,4 @@
+import $ from 'jquery';
 //console.log('学习webpack');
 require('./index.css');
 
@@ -6,3 +7,5 @@ require('./index.css');
 }
 
 [1, 2].includes(1);
+
+console.log($);

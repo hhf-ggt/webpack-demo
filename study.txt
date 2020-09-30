@@ -10,3 +10,14 @@
             }
         }
     ]
+
+2.引入全局变量
+    import $ from 'jquery';
+    yarn add jquery -D
+
+    注意：loader有三种 分别是全局的loader expose-loader 内敛loader 
+    pre 前面执行的 normal 普通的loader 内联loader post 后置
+
+    那么现在我们想暴露出来一个$ 符号来 那么我们就可以使用全局的loader
+    import $ from 'expose-loader?$!jquery';
+    
