@@ -1,0 +1,12 @@
+1.eslint
+    首先我们安装eslint yarn add eslint eslint-loader -D
+
+    之后我们需要配置loader
+    rules: [
+        {
+            test: /\.js$/,
+            use: {
+                loader: 'eslint-loader'
+            }
+        }
+    ]

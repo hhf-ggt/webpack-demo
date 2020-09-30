@@ -53,6 +53,16 @@ module.exports = {
     ],
     module:{ // 模块
         rules: [
+            // 写在这里我们不知道是js先执行还是先检验 所以我们将规则写在js的规则中 除非我们这里加一个 enforce: 'pre' 如果写了post就不行了会在js后执行
+            // {
+            //     test: /\.js$/,
+            //     use: {
+            //         loader: 'eslint-loader',
+                    //    options: {
+                    //        enforce: 'pre'
+                    //    }
+            //     }
+            // },
             {
                 test: /\.js$/,
                 use: {
