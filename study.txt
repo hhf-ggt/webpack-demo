@@ -20,4 +20,36 @@
 
     那么现在我们想暴露出来一个$ 符号来 那么我们就可以使用全局的loader
     import $ from 'expose-loader?$!jquery';
-    
+
+3.devtool 源码映射
+    3.1 devtool 设置为source-map 增加映射文件 出错了会 标识 当前报错的列和行  大 全
+
+    3.2 设置为 eval-source-map  不会产生单独的文件 可以帮助我们调试源码
+
+    3.3 设置为 cheap-module-source-map 不会产生列只会产生一个映射文件
+
+    3.4 设置为 cheap-module-eval-source-map 不会产生文件 集成在打包后的文件中 不会产生列
+
+4.watch 
+    watch: true
+    代码有更新的时候自动开始重新打包
+    // 监控的选项
+    watchOptions:{
+        poll: 1000, // 每秒问我一千次是否要更行
+        ignored: /node_modules/
+        aggreatement: 500,//防抖 我一直输入代码 不能我每次输入代码就问我是否要打包 防抖的作用
+    }
+
+5.webpack小插件
+    5.1 cleanWebpackPlugin 清除上一次打包出来的文件
+
+    5.2 copyWebpackPlugin 复制文件到另外的文件
+
+    5.3版权输出
+        bannerPlugin
+        使用需要引入webpack 之后new webpack.bannerPlugin('2020-10-01')
+
+6.webpack 输出的css html 我们可以指定输出的文件夹
+    并且我们可以给我们的图片或者我们的js前面增加我们的域名
+
+7.webpack跨域问题
