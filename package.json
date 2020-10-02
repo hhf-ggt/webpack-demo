@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.11.5",
-    "@babel/runtime": "^7.11.2"
+    "@babel/runtime": "^7.11.2",
+    "moment": "^2.29.0"
   }
 }

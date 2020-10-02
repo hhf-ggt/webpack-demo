@@ -53,3 +53,76 @@
     并且我们可以给我们的图片或者我们的js前面增加我们的域名
 
 7.webpack跨域问题
+    我们可以使用express来 启动一个服务
+    var express = require('express');
+    我们用3000端口去请求8080由于同源策略是有跨域问题的
+
+    所以我们需要配置代理
+    就是在
+    devServer:{
+        proxy: {
+            '/api': 'http://localhost:3000' // 如果你方位的是/api那么就代理到3000端口 就同端口的
+        }
+    }
+    这样还是有问题 我们不能把api传递给后端 所以我们应该将 /api去掉
+    devServer:{
+        proxy: {
+            '/api': {
+                target: 'http://localhost:3000',
+                pathRewrite: {
+                    '/api': ''// 这样我们就可以把这个/api给替换为空了
+                }
+            }
+        }
+    }
+
+    如果我们前端需要自己模拟数据的时候可以在before这个钩子上进行
+    eg: devServer:{
+        bdfore(app) {
+            app.get('./', (req, res) => { // 这里就可以进行数据返回的模拟了
+                res.json({name: '11'})
+            })
+        }
+    }
+
+8. resolve 解析第三方包
+    我们在使用的时候可以指定我们的解析文件 
+    eg: resolve: {
+        modules: [path.resolve('node_modules')]
+    }
+    第二个参数是alias 是可以配置别名的
+    eg: resolve: {
+        alias: {
+            '$': './src' // 那么我们以后写./src的时候就可以直接写$来代替了
+            mainFields: ['style'] // 可以指定入口 先找style
+        }
+    }
+
+    自动补全配置
+    extensions: [// 默认是先找js 然后是 css 然后是 json 最后是vue
+        '.js',
+        '.css',
+        '.json',
+        '.vue'
+    ]
+
+9.定义环境变量
+    webpack有一个自定义的插件叫 webpack.definePlugin();
+
+10.区分环境
+    分别创建不同环境的配置文件 然后使用merge进行合并
+
+11.webpack优化
+    配置noPress是不需要解析的文件
+
+    exclude 也可以
+
+    include的意思也是一样的 exclude是排除一个  include是只检测某一个
+
+    我们可以忽略某个插件
+    new webpack.IgnorePlugin({
+        /\./locale//, /moment/
+    })
+    意思就是我们在引入某个插件的时候如果他去找loale下面的东西的时候我们就忽略掉他
+
+12.动态
