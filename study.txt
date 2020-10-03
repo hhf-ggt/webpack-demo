@@ -125,4 +125,23 @@
     })
     意思就是我们在引入某个插件的时候如果他去找loale下面的东西的时候我们就忽略掉他
 
-12.动态
+12.抽离公共的代码
+    spliteChunks
+
+13.懒加载
+    主要靠es6草案中的语法 jsonp实现动态文件加载
+    import('./source.js').then(data => {
+        console.log(data);
+    })
+    需要安装和配置异步加载插件
+
+14.热更新
+    如果我改了某了文件只编译我更改的文件 而不是全部重新编译一次
+    hot: true
+    需要安装插件
+
+
+二.webpack的tapable
+    webpack本质上是一种事件流的机制，它的工作流程就是将各个插件串联起来，而实现这一切的核心就是tapable
+    ,tapable有点类似node.js的events库，核心原理也是依赖于发布订阅模式；
+     这块的东西我们放在record中去搞
