@@ -145,3 +145,104 @@
     webpack本质上是一种事件流的机制，它的工作流程就是将各个插件串联起来，而实现这一切的核心就是tapable
     ,tapable有点类似node.js的events库，核心原理也是依赖于发布订阅模式；
      这块的东西我们放在record中去搞
+
+     1.安装tapable
+
+        各种同步和异步的钩子
+        tapable
+            sync
+                SyncHook // 同步的钩子
+                syncBailHook // 同步保险的钩子 有一个熔断丝 起保护作用的
+                syncWaterfallHook
+                syncLoopHook
+            
+            async
+                asyncparaller*
+                    asyncparallelhook 
+                    asyncparallelbailhook
+                asyncseries
+                    asyncserieshook
+                    asyncseriesbailhook
+                    asyncserieswaterfallHook
+        let { SyncHook } = require('tapable');
+
+        class Lesson {
+            constructor() {
+                // 定义一个对象
+                this.hooks = {
+                    arch: new SyncHook(['name', 'age']),// 传入参数
+                }
+            }
+            tap() {// 注册监听函数
+                 this.hooks.arch.tap('node', function(name) {
+                    console.log('start');
+                });
+                this.hooks.arch.tap('webpack', function(age) {
+                    console.log('webpack');
+                })
+            }
+            // 启动钩子的方法
+            start() {
+               this.hooks.arch.call();
+            }
+        }
+        // 创建一个lesson的实例
+        let l = new Lesson();
+        l.tap();// 注册这两个事件
+        l.start(); //启动
+
+
+
+        这里我们来实现这样一个同步的钩子
+        class SyncHook {
+            constructor(args) { // 参数
+                this.tasks = []; // 用来存放我们的事件
+            }
+            tap(name, task) {
+                this.tasks.push(task);
+            }
+            call(...args) {
+                this.tasks.forEach((task) => task(...args));
+            }
+        }
+        
+        let hook = new SyncHook(['name']);
+        hook.tab('react', function(name) {
+            console.log(name);
+        })
+        hook.tab('node', function(name) {
+            console.log(naem)
+        })
+        hook.call('11');
+
+        syncBailHook
+        增加了一个判断或者就是验证
+        与asynHook不同的是 循环执行事件的时候先需要进行判断一下这个事件的返回值是否是我们的undefined
+
+        class SyncBailHook {
+            constructor(args) { // 参数
+                this.tasks = []; // 用来存放我们的事件
+            }
+            tap(name, task) {
+                this.tasks.push(task);
+            }
+            call(...args) {
+                let ret;// 当前函数的返回值
+                let index = 0;
+                do {
+                    ret = this.tasks[index++](...args)
+                } while(ret === undefined && index < this.tasks.length);// 这里增加了循环停止的条件
+            }
+        }
+        
+        let hook = new SyncHook(['name']);
+        hook.tab('react', function(name) {
+            console.log(name);
+        })
+        hook.tab('node', function(name) {
+            console.log(naem)
+        })
+        hook.call('11');
+
+
+        asyncWaterfallHook 瀑布流  就是第一个方法执行完后将值传入给第二个参数 
